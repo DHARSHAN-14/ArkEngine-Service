@@ -11,7 +11,7 @@ import Footer from './components/Footer'
 
 function App() {
   const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('arkengine-theme') === 'dark'
+    return localStorage.getItem('arkengine-theme') !== 'light'
   })
 
   useEffect(() => {

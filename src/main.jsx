@@ -5,7 +5,7 @@ import './index.css'
 
 // Apply theme before render to avoid flash
 const savedTheme = localStorage.getItem('arkengine-theme')
-if (savedTheme === 'dark') {
+if (savedTheme !== 'light') {
   document.documentElement.classList.add('dark')
 }
 
