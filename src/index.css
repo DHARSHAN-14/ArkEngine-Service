@@ -1,0 +1,183 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #fefdf9;
+    --bg-secondary: #fdf8ef;
+    --text-primary: #2a2420;
+    --text-secondary: #5a4a3a;
+    --accent: #b8651a;
+    --accent-light: #d4956a;
+    --border: rgba(184, 101, 26, 0.15);
+    --card-bg: rgba(253, 248, 239, 0.8);
+    --glow: rgba(184, 101, 26, 0.12);
+  }
+
+  .dark {
+    --bg-primary: #110e0c;
+    --bg-secondary: #1a1614;
+    --text-primary: #f9f0de;
+    --text-secondary: #c4a882;
+    --accent: #c47c50;
+    --accent-light: #d4956a;
+    --border: rgba(196, 124, 80, 0.2);
+    --card-bg: rgba(42, 36, 32, 0.7);
+    --glow: rgba(196, 124, 80, 0.15);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #fefdf9;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 3px;
+  }
+}
+
+@layer components {
+  .section-pad {
+    @apply py-24 px-6 md:px-12 lg:px-20;
+  }
+
+  .heading-xl {
+    font-family: 'Playfair Display', serif;
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+    color: var(--text-primary);
+  }
+
+  .heading-lg {
+    font-family: 'Playfair Display', serif;
+    @apply text-3xl md:text-4xl font-bold leading-tight;
+    color: var(--text-primary);
+  }
+
+  .body-text {
+    color: var(--text-secondary);
+    @apply text-base md:text-lg leading-relaxed;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fefdf9;
+    @apply px-6 py-3 rounded-xl font-medium text-sm tracking-wide transition-all duration-300;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-light);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px var(--glow);
+  }
+
+  .btn-secondary {
+    border: 1.5px solid var(--border);
+    color: var(--text-primary);
+    @apply px-6 py-3 rounded-xl font-medium text-sm tracking-wide transition-all duration-300;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+
+  .card-glass {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    @apply rounded-2xl;
+    transition: all 0.3s ease;
+  }
+
+  .card-glass:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 32px var(--glow);
+  }
+
+  .accent-text {
+    color: var(--accent);
+  }
+
+  .section-label {
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    @apply text-xs uppercase tracking-widest font-medium;
+  }
+
+  .dot-grid {
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 40px var(--glow);
+  }
+}
+
+/* Orb animation */
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes orb-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.orb-core {
+  animation: orb-pulse 4s ease-in-out infinite;
+}
+
+.orb-ring {
+  animation: orb-rotate 12s linear infinite;
+}
+
+.orb-ring-reverse {
+  animation: orb-rotate 18s linear infinite reverse;
+}
+
+.text-shimmer {
+  background: linear-gradient(90deg, var(--text-primary) 0%, var(--accent) 50%, var(--text-primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
