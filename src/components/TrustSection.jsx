@@ -1,6 +1,5 @@
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
 import { Users, Layers, BrainCircuit, Zap, PackageCheck, HeartHandshake } from 'lucide-react'
 
 const trustPoints = [
@@ -32,7 +31,7 @@ const trustPoints = [
     icon: PackageCheck,
     title: 'Product-minded approach',
     desc: 'We think like product owners, not contractors. We ask why before we ask how.',
-    color: '#7a6a8e',
+    color: '#7a5ea0',
   },
   {
     icon: HeartHandshake,
@@ -45,6 +44,7 @@ const trustPoints = [
 function TrustCard({ item, index }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
+  const [hovered, setHovered] = useState(false)
   const Icon = item.icon
 
   return (
@@ -52,22 +52,42 @@ function TrustCard({ item, index }) {
       ref={ref}
       initial={{ opacity: 0, y: 40 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: index * 0.08, duration: 0.55, ease: 'easeOut' }}
-      className="card-glass p-6 group cursor-default"
+      transition={{ delay: index * 0.08, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      className="card-glass p-7 group cursor-default relative overflow-hidden"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        borderColor: hovered ? `${item.color}40` : undefined,
+      }}
     >
+      {/* Hover glow — background decoration */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none rounded-2xl"
+        animate={{ opacity: hovered ? 1 : 0 }}
+        transition={{ duration: 0.4 }}
+        style={{
+          background: `radial-gradient(circle at 20% 20%, ${item.color}08, transparent 60%)`,
+        }}
+      />
+
       <div
-        className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-        style={{ background: item.color + '18', border: `1px solid ${item.color}30` }}
+        className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 relative z-10"
+        style={{
+          background: `${item.color}12`,
+          border: `1px solid ${item.color}25`,
+          transform: hovered ? 'scale(1.1)' : 'scale(1)',
+          boxShadow: hovered ? `0 4px 16px ${item.color}18` : 'none',
+        }}
       >
         <Icon size={18} style={{ color: item.color }} />
       </div>
       <h3
-        className="font-semibold text-sm mb-2"
+        className="font-semibold text-[15px] mb-2.5 relative z-10"
         style={{ color: 'var(--text-primary)', fontFamily: 'DM Sans' }}
       >
         {item.title}
       </h3>
-      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+      <p className="text-sm leading-relaxed relative z-10" style={{ color: 'var(--text-secondary)' }}>
         {item.desc}
       </p>
     </motion.div>
@@ -76,10 +96,18 @@ function TrustCard({ item, index }) {
 
 export default function TrustSection() {
   const titleRef = useRef(null)
-  const titleInView = useInView(titleRef, { once: true })
+  const titleInView = useInView(titleRef, { once: true, margin: '-80px' })
 
   return (
-    <section className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
+    <section className="section-pad relative" style={{ background: 'var(--bg-secondary)' }}>
+      {/* Top gradient overlay for depth */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'var(--section-gradient)' }}
+      />
+      {/* Top section divider */}
+      <div className="section-divider absolute top-0 left-0 right-0" />
+
       <div className="max-w-7xl mx-auto">
         <div ref={titleRef} className="max-w-2xl mb-16">
           <motion.p
@@ -90,18 +118,18 @@ export default function TrustSection() {
             Why ArkEngine
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={titleInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1, duration: 0.6 }}
-            className="heading-lg mb-4"
+            transition={{ delay: 0.1, duration: 0.65, ease: [0.25, 0.1, 0.25, 1] }}
+            className="heading-lg mb-5"
           >
             A small team with
             <span className="italic" style={{ color: 'var(--accent)' }}> serious capability.</span>
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={titleInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.65 }}
             className="body-text"
           >
             We've deliberately stayed small so every client gets our genuine best — not a rushed junior dev project.

@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 
-// Apply theme before render to avoid flash
+// Apply theme before render to avoid flash — light mode is default
 const savedTheme = localStorage.getItem('arkengine-theme')
-if (savedTheme !== 'light') {
+if (savedTheme === 'dark') {
   document.documentElement.classList.add('dark')
 }
 

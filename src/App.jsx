@@ -11,7 +11,7 @@ import Footer from './components/Footer'
 
 function App() {
   const [isDark, setIsDark] = useState(() => {
-    return localStorage.getItem('arkengine-theme') !== 'light'
+    return localStorage.getItem('arkengine-theme') === 'dark'
   })
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function App() {
   }, [isDark])
 
   return (
-    <div className="min-h-screen overflow-x-hidden" style={{ background: 'var(--bg-primary)' }}>
+    <div className="min-h-screen overflow-x-hidden transition-colors duration-500" style={{ background: 'var(--bg-primary)' }}>
       <Navbar isDark={isDark} setIsDark={setIsDark} />
       <Hero />
       <TrustSection />

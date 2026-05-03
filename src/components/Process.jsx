@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { Search, MapPin, Hammer, TestTube, Rocket, LifeBuoy } from 'lucide-react'
 
@@ -47,12 +47,103 @@ const steps = [
   },
 ]
 
+function StepCard({ step, index, inView }) {
+  const [hovered, setHovered] = useState(false)
+  const Icon = step.icon
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.1, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      className="relative group"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Connector line to next card (visible on larger grids) */}
+      {index < steps.length - 1 && (
+        <div className="hidden lg:block absolute top-8 -right-3 w-6 h-px" style={{ background: `linear-gradient(90deg, ${step.color}40, transparent)` }} />
+      )}
+
+      <div
+        className="card-glass p-7 cursor-default relative overflow-hidden h-full"
+        style={{
+          borderColor: hovered ? `${step.color}40` : undefined,
+        }}
+      >
+        {/* Large step number — watermark */}
+        <div
+          className="absolute -right-1 -top-2 font-bold select-none pointer-events-none transition-opacity duration-500"
+          style={{
+            fontFamily: 'Playfair Display',
+            fontSize: 72,
+            color: step.color,
+            lineHeight: 1,
+            opacity: hovered ? 0.1 : 0.04,
+          }}
+        >
+          {step.n}
+        </div>
+
+        {/* Icon */}
+        <div
+          className="w-11 h-11 rounded-xl flex items-center justify-center mb-5 transition-all duration-300 relative z-10"
+          style={{
+            background: `${step.color}12`,
+            border: `1px solid ${step.color}25`,
+            transform: hovered ? 'scale(1.1)' : 'scale(1)',
+            boxShadow: hovered ? `0 4px 16px ${step.color}18` : 'none',
+          }}
+        >
+          <Icon size={18} style={{ color: step.color }} />
+        </div>
+
+        {/* Step label */}
+        <div
+          className="text-[11px] mb-2 font-medium relative z-10"
+          style={{ color: step.color, fontFamily: 'DM Mono' }}
+        >
+          Step {step.n}
+        </div>
+
+        <h3
+          className="font-bold text-base mb-2.5 relative z-10"
+          style={{ color: 'var(--text-primary)', fontFamily: 'Playfair Display' }}
+        >
+          {step.title}
+        </h3>
+        <p className="text-sm leading-relaxed relative z-10" style={{ color: 'var(--text-secondary)' }}>
+          {step.desc}
+        </p>
+
+        {/* Hover glow */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none rounded-2xl"
+          animate={{ opacity: hovered ? 1 : 0 }}
+          transition={{ duration: 0.4 }}
+          style={{
+            background: `radial-gradient(circle at 30% 80%, ${step.color}06, transparent 60%)`,
+          }}
+        />
+      </div>
+    </motion.div>
+  )
+}
+
 export default function Process() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
   return (
-    <section id="process" className="section-pad" style={{ background: 'var(--bg-secondary)' }}>
+    <section id="process" className="section-pad relative" style={{ background: 'var(--bg-secondary)' }}>
+      {/* Top gradient overlay for depth */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'var(--section-gradient)' }}
+      />
+      {/* Top divider */}
+      <div className="section-divider absolute top-0 left-0 right-0" />
+
       <div className="max-w-7xl mx-auto" ref={ref}>
         <div className="max-w-2xl mb-16">
           <motion.p
@@ -63,18 +154,18 @@ export default function Process() {
             How We Work
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.1 }}
-            className="heading-lg mb-4"
+            transition={{ delay: 0.1, duration: 0.65 }}
+            className="heading-lg mb-5"
           >
             A clear process from
             <span className="italic" style={{ color: 'var(--accent)' }}> idea to live system.</span>
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.15 }}
+            transition={{ delay: 0.15, duration: 0.65 }}
             className="body-text"
           >
             No guesswork, no surprises — you know exactly where we are at every stage.
@@ -83,86 +174,43 @@ export default function Process() {
 
         {/* Steps grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {steps.map((step, i) => {
-            const Icon = step.icon
-            return (
-              <motion.div
-                key={step.n}
-                initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.09, duration: 0.55, ease: 'easeOut' }}
-                className="card-glass p-6 group cursor-default relative overflow-hidden"
-              >
-                {/* Step number — background */}
-                <div
-                  className="absolute right-4 top-4 font-bold opacity-[0.06] select-none"
-                  style={{
-                    fontFamily: 'Playfair Display',
-                    fontSize: 64,
-                    color: step.color,
-                    lineHeight: 1,
-                  }}
-                >
-                  {step.n}
-                </div>
-
-                {/* Icon */}
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: step.color + '18', border: `1px solid ${step.color}30` }}
-                >
-                  <Icon size={18} style={{ color: step.color }} />
-                </div>
-
-                {/* Number label */}
-                <div
-                  className="text-xs mb-2 font-medium"
-                  style={{ color: step.color, fontFamily: 'DM Mono' }}
-                >
-                  Step {step.n}
-                </div>
-
-                <h3
-                  className="font-bold text-base mb-2"
-                  style={{ color: 'var(--text-primary)', fontFamily: 'Playfair Display' }}
-                >
-                  {step.title}
-                </h3>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  {step.desc}
-                </p>
-
-                {/* Connector dot */}
-                {i < steps.length - 1 && (
-                  <div
-                    className="absolute bottom-0 right-0 w-px"
-                    style={{
-                      height: 24,
-                      background: `linear-gradient(to bottom, ${step.color}40, transparent)`,
-                      display: 'none', // decorative only on desktop
-                    }}
-                  />
-                )}
-              </motion.div>
-            )
-          })}
+          {steps.map((step, i) => (
+            <StepCard key={step.n} step={step} index={i} inView={inView} />
+          ))}
         </div>
 
-        {/* Pipeline connector line (desktop) */}
+        {/* Pipeline progress bar (desktop) */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={inView ? { scaleX: 1 } : {}}
-          transition={{ delay: 0.8, duration: 1, ease: 'easeInOut' }}
-          className="hidden lg:block mt-10 mx-auto"
+          transition={{ delay: 1, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+          className="hidden lg:block mt-12 mx-auto"
           style={{
             height: 2,
-            maxWidth: 600,
-            background: 'linear-gradient(to right, var(--accent), #4a8a5e, #5a6e8a, #7a5ea0)',
+            maxWidth: 700,
+            background: 'linear-gradient(to right, #b8651a, #4a8a5e, #5a6e8a, #7a5ea0, #8b7355, #5a8a7a)',
             borderRadius: 2,
             transformOrigin: 'left',
-            opacity: 0.4,
+            opacity: 0.35,
           }}
         />
+
+        {/* Pipeline dots */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 1.5, duration: 0.5 }}
+          className="hidden lg:flex justify-between mt-3 mx-auto"
+          style={{ maxWidth: 700 }}
+        >
+          {steps.map((step) => (
+            <div
+              key={step.n}
+              className="w-2 h-2 rounded-full"
+              style={{ background: step.color, opacity: 0.5 }}
+            />
+          ))}
+        </motion.div>
       </div>
     </section>
   )
