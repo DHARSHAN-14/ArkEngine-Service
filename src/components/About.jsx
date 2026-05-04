@@ -1,158 +1,193 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
-import { Heart, Code2, Users, Star } from 'lucide-react'
+import { Heart, Code2, Users, Star, MapPin, Sparkles } from 'lucide-react'
 
 const values = [
-  { icon: Heart, label: 'We care about your outcome, not just the deliverable.', color: '#b8651a' },
-  { icon: Code2, label: 'We write code that\'s clean, documented, and maintainable.', color: '#4a8a5e' },
-  { icon: Users, label: 'We keep communication simple, honest, and direct.', color: '#5a6e8a' },
-  { icon: Star, label: 'We hold ourselves to a high standard — always.', color: '#8b7355' },
+  { icon: Heart, label: 'Outcome-focused', desc: 'We care about your success, not just the deliverable.', color: '#b8651a' },
+  { icon: Code2, label: 'Clean engineering', desc: 'Code that\'s documented, tested, and built to last.', color: '#4a8a5e' },
+  { icon: Users, label: 'Direct communication', desc: 'Simple, honest, and transparent — always.', color: '#5a6e8a' },
+  { icon: Star, label: 'High standards', desc: 'We hold ourselves to excellence on every project.', color: '#8b7355' },
+]
+
+const team = [
+  { initial: 'A', name: 'Arun', role: 'Lead Engineer', color: '#b8651a' },
+  { initial: 'R', name: 'Ravi', role: 'Full-Stack Dev', color: '#4a8a5e' },
+  { initial: 'K', name: 'Karthik', role: 'AI/ML Engineer', color: '#5a6e8a' },
+  { initial: 'E', name: 'Elango', role: 'Backend Dev', color: '#7a5ea0' },
+  { initial: 'N', name: 'Nithya', role: 'UI/UX Designer', color: '#8b7355' },
 ]
 
 export default function About() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
 
+  const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 24 },
+    animate: inView ? { opacity: 1, y: 0 } : {},
+    transition: { delay, duration: 0.65, ease: [0.25, 0.1, 0.25, 1] },
+  })
+
   return (
     <section id="about" className="section-pad relative" style={{ background: 'var(--bg-secondary)' }}>
-      {/* Top gradient overlay for depth */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'var(--section-gradient)' }}
-      />
-      {/* Top divider */}
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'var(--section-gradient)' }} />
       <div className="section-divider absolute top-0 left-0 right-0" />
 
       <div className="max-w-7xl mx-auto" ref={ref}>
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
-          {/* Left */}
-          <div>
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              className="section-label mb-4"
-            >
-              About ArkEngine
-            </motion.p>
-            <motion.h2
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.1, duration: 0.65 }}
-              className="heading-lg mb-7"
-            >
-              9 people.
-              <span className="italic" style={{ color: 'var(--accent)' }}> Serious work.</span>
-            </motion.h2>
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: 0.15, duration: 0.65 }}
-              className="space-y-5"
-            >
-              <p className="body-text">
-                ArkEngine is a small, deliberately-sized AI engineering studio. We didn't grow big on purpose —
-                because we believe that a focused team of experienced engineers produces better work than a large
-                agency with layers of management.
-              </p>
-              <p className="body-text">
-                We are a small team, so every project gets real attention. We care about understanding
-                the problem before writing code, and we build systems that are useful, scalable, and maintainable.
-              </p>
-              <p className="body-text">
-                We've worked with startups, mid-sized businesses, and enterprises — and we treat each project
-                with the same level of care: think first, build right, ship confidently.
-              </p>
-            </motion.div>
-          </div>
+        {/* Section header — centered */}
+        <div className="text-center mb-14 sm:mb-20">
+          <motion.p {...fadeUp(0)} className="section-label mb-4">About ArkEngine</motion.p>
+          <motion.h2 {...fadeUp(0.1)} className="heading-lg mb-5">
+            5 people.
+            <span className="italic" style={{ color: 'var(--accent)' }}> Serious work.</span>
+          </motion.h2>
+          <motion.p {...fadeUp(0.15)} className="body-text max-w-2xl mx-auto">
+            A deliberately small AI engineering studio — because a focused team of experienced engineers
+            produces better work than a large agency with layers of management.
+          </motion.p>
+        </div>
 
-          {/* Right — values panel */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ delay: 0.25, duration: 0.75, ease: [0.25, 0.1, 0.25, 1] }}
-          >
-            <div className="card-glass p-8 lg:p-10 relative overflow-hidden">
-              {/* Background decoration */}
-              <div
-                className="absolute top-0 right-0 w-40 h-40 rounded-full pointer-events-none"
-                style={{
-                  background: 'radial-gradient(circle, var(--glow-strong) 0%, transparent 70%)',
-                  transform: 'translate(30%, -30%)',
-                }}
-              />
-
-              <div className="section-label mb-7 relative z-10">How we think</div>
-
-              <div className="space-y-6 relative z-10">
-                {values.map((v, i) => {
-                  const Icon = v.icon
-                  return (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={inView ? { opacity: 1, x: 0 } : {}}
-                      transition={{ delay: 0.3 + i * 0.1, duration: 0.55 }}
-                      className="flex items-start gap-4 group"
-                    >
-                      <div
-                        className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5 transition-all duration-300 group-hover:scale-110"
-                        style={{
-                          background: `${v.color}14`,
-                          border: `1px solid ${v.color}28`,
-                        }}
-                      >
-                        <Icon size={15} style={{ color: v.color }} />
-                      </div>
-                      <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                        {v.label}
-                      </p>
-                    </motion.div>
-                  )
-                })}
-              </div>
-
-              {/* Team avatars */}
-              <div
-                className="mt-9 pt-7 flex items-center gap-4 relative z-10"
-                style={{ borderTop: '1px solid var(--border)' }}
+        {/* Team members — horizontal scroll on mobile, centered row on desktop */}
+        <motion.div {...fadeUp(0.2)} className="mb-14 sm:mb-20">
+          <div className="flex gap-4 sm:gap-6 overflow-x-auto pb-4 sm:pb-0 snap-x snap-mandatory sm:snap-none sm:justify-center scrollbar-hide -mx-4 px-4 sm:mx-0 sm:px-0">
+            {team.map((member, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.25 + i * 0.08, duration: 0.6 }}
+                className="flex flex-col items-center gap-3 snap-center min-w-[100px] sm:min-w-0 group cursor-default"
               >
-                <div className="flex -space-x-2">
-                  {[...Array(5)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs text-white font-bold transition-transform duration-200 hover:scale-110 hover:z-10"
-                      style={{
-                        background: ['#b8651a', '#4a8a5e', '#5a6e8a', '#7a5ea0', '#8b7355'][i],
-                        borderColor: 'var(--card-bg-solid)',
-                      }}
-                    >
-                      {['A', 'R', 'K', 'E', 'N'][i]}
-                    </div>
-                  ))}
+                {/* Avatar with ring */}
+                <div className="relative">
                   <div
-                    className="w-8 h-8 rounded-full border-2 flex items-center justify-center text-[11px] font-bold"
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold text-white transition-all duration-500 group-hover:scale-110 group-hover:shadow-lg"
                     style={{
-                      background: 'var(--glow)',
-                      borderColor: 'var(--card-bg-solid)',
-                      color: 'var(--text-secondary)',
-                      border: '2px solid var(--card-bg-solid)',
+                      background: `linear-gradient(135deg, ${member.color}, ${member.color}cc)`,
+                      boxShadow: `0 4px 15px ${member.color}30`,
                     }}
                   >
-                    +4
+                    {member.initial}
                   </div>
+                  {/* Decorative ring on hover */}
+                  <div
+                    className="absolute inset-0 rounded-full border-2 transition-all duration-500 opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-[1.15]"
+                    style={{ borderColor: `${member.color}40` }}
+                  />
+                  {/* Online dot */}
+                  <div
+                    className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full border-2"
+                    style={{
+                      background: '#4ade80',
+                      borderColor: 'var(--bg-secondary)',
+                    }}
+                  />
                 </div>
-                <div>
-                  <div className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
-                    9-member core team
-                  </div>
-                  <div className="text-[11px] mt-0.5" style={{ color: 'var(--text-secondary)', fontFamily: 'DM Mono' }}>
-                    Based in India, serving globally
-                  </div>
+                <div className="text-center">
+                  <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{member.name}</div>
+                  <div className="text-[10px] sm:text-[11px] mt-0.5" style={{ color: 'var(--text-secondary)', fontFamily: 'DM Mono' }}>{member.role}</div>
                 </div>
-              </div>
+              </motion.div>
+            ))}
+
+          </div>
+
+          {/* Location badge */}
+          <motion.div {...fadeUp(0.4)} className="flex justify-center mt-6 sm:mt-8">
+            <div
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs"
+              style={{
+                background: 'var(--glow)',
+                border: '1px solid var(--border)',
+                color: 'var(--text-secondary)',
+                fontFamily: 'DM Mono',
+              }}
+            >
+              <MapPin size={12} style={{ color: 'var(--accent)' }} />
+              Based in India · Serving globally
             </div>
           </motion.div>
+        </motion.div>
+
+        {/* Values — 2x2 grid with creative cards */}
+        <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">
+          {values.map((v, i) => {
+            const Icon = v.icon
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.5 + i * 0.1, duration: 0.6 }}
+                className="group relative"
+              >
+                <div
+                  className="relative overflow-hidden rounded-2xl p-6 sm:p-8 transition-all duration-500 cursor-default group-hover:-translate-y-1"
+                  style={{
+                    background: 'var(--card-bg)',
+                    border: '1px solid var(--border)',
+                    boxShadow: 'var(--shadow-sm)',
+                  }}
+                >
+                  {/* Accent line at top */}
+                  <div
+                    className="absolute top-0 left-6 right-6 h-px transition-all duration-500 group-hover:left-0 group-hover:right-0"
+                    style={{ background: `linear-gradient(90deg, transparent, ${v.color}60, transparent)` }}
+                  />
+
+                  {/* Glow on hover */}
+                  <div
+                    className="absolute top-0 right-0 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                    style={{
+                      background: `radial-gradient(circle, ${v.color}12, transparent 70%)`,
+                      transform: 'translate(30%, -30%)',
+                    }}
+                  />
+
+                  <div className="relative z-10 flex items-start gap-4">
+                    {/* Icon */}
+                    <div
+                      className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
+                      style={{
+                        background: `${v.color}14`,
+                        border: `1px solid ${v.color}25`,
+                      }}
+                    >
+                      <Icon size={18} style={{ color: v.color }} />
+                    </div>
+
+                    <div>
+                      <h4 className="text-sm font-bold mb-1.5 transition-colors duration-300 group-hover:text-[var(--accent)]" style={{ color: 'var(--text-primary)' }}>
+                        {v.label}
+                      </h4>
+                      <p className="text-xs sm:text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                        {v.desc}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
+
+        {/* Bottom CTA strip */}
+        <motion.div
+          {...fadeUp(0.7)}
+          className="mt-12 sm:mt-16 text-center"
+        >
+          <div
+            className="inline-flex items-center gap-3 px-6 py-3 rounded-2xl transition-all duration-300 hover:-translate-y-0.5 cursor-default"
+            style={{
+              background: 'var(--glow)',
+              border: '1px solid var(--border)',
+            }}
+          >
+            <Sparkles size={16} style={{ color: 'var(--accent)' }} />
+            <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+              Think first. Build right. <span className="font-semibold" style={{ color: 'var(--accent)' }}>Ship confidently.</span>
+            </span>
+          </div>
+        </motion.div>
       </div>
     </section>
   )

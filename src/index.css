@@ -215,6 +215,14 @@
   .glow-accent {
     box-shadow: 0 0 40px var(--glow);
   }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /* ===== Animations ===== */

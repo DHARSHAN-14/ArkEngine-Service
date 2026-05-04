@@ -405,7 +405,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.div custom={4} variants={tv} initial="hidden" animate="visible" className="flex gap-6 sm:gap-10 mt-10 sm:mt-14 pt-6 sm:pt-8" style={{ borderTop: '1px solid var(--border)' }}>
-            {[{ n: '9', label: 'Person team' }, { n: '40+', label: 'Projects built' }, { n: '5', label: 'Core services' }].map((s) => (
+            {[{ n: '5', label: 'Person team' }, { n: '40+', label: 'Projects built' }, { n: '5', label: 'Core services' }].map((s) => (
               <div key={s.label} className="group cursor-default">
                 <div className="text-xl sm:text-2xl font-bold transition-colors duration-300 group-hover:text-[var(--accent-warm)]" style={{ fontFamily: 'Playfair Display', color: 'var(--accent)' }}>{s.n}</div>
                 <div className="text-xs mt-1" style={{ color: 'var(--text-secondary)', fontFamily: 'DM Mono' }}>{s.label}</div>
