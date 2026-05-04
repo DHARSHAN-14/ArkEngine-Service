@@ -314,11 +314,7 @@ function DarkCanvas({ mouseX, mouseY, containerRef }) {
       for (const n of nodes) {
         const dx = n.x - mx, dy = n.y - my, md = Math.sqrt(dx * dx + dy * dy), near = md < MR
         if (n.isHub) {
-          ctx.beginPath(); ctx.arc(n.x, n.y, 36, 0, Math.PI * 2); const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 36); g.addColorStop(0, `rgba(${R},${G},${B},0.18)`); g.addColorStop(1, 'transparent'); ctx.fillStyle = g; ctx.fill()
-          ctx.beginPath(); ctx.arc(n.x, n.y, 20, 0, Math.PI * 2); const cg = ctx.createRadialGradient(n.x - 4, n.y - 4, 0, n.x, n.y, 20); cg.addColorStop(0, 'rgba(230,160,90,0.95)'); cg.addColorStop(1, 'rgba(200,120,50,0.9)'); ctx.fillStyle = cg; ctx.fill()
-          ctx.fillStyle = '#fff'; ctx.font = 'bold 17px "Playfair Display",serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('A', n.x, n.y + 1)
-          ctx.beginPath(); ctx.arc(n.x, n.y, 34 + Math.sin(time) * 2, 0, Math.PI * 2); ctx.strokeStyle = `rgba(${R},${G},${B},0.2)`; ctx.lineWidth = 1; ctx.setLineDash([4, 6]); ctx.stroke(); ctx.setLineDash([])
-          ctx.beginPath(); ctx.arc(n.x, n.y, 50 + Math.cos(time * 0.7) * 3, 0, Math.PI * 2); ctx.strokeStyle = `rgba(${R},${G},${B},0.08)`; ctx.lineWidth = 0.5; ctx.stroke()
+          continue
         } else if (n.isAnchor) {
           const gl = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 16); gl.addColorStop(0, `rgba(${R},${G},${B},${near ? 0.28 : 0.14})`); gl.addColorStop(1, 'transparent'); ctx.beginPath(); ctx.arc(n.x, n.y, 16, 0, Math.PI * 2); ctx.fillStyle = gl; ctx.fill()
           ctx.beginPath(); ctx.arc(n.x, n.y, 4, 0, Math.PI * 2); ctx.fillStyle = `rgba(${R},${G},${B},${near ? 0.8 : 0.55})`; ctx.fill()
@@ -326,8 +322,6 @@ function DarkCanvas({ mouseX, mouseY, containerRef }) {
           ctx.beginPath(); ctx.arc(n.x, n.y, n.radius * (near ? 1.3 : 1), 0, Math.PI * 2); ctx.fillStyle = `rgba(${R},${G},${B},${(near ? 0.55 : 0.3) + Math.sin(time * 2 + n.phase) * 0.1})`; ctx.fill()
         }
       }
-      const hub = nodes[0]
-      for (let i = 1; i <= 4; i++) { const a = nodes[i]; if (!a) continue; const p = ((time * 0.4 + i * 0.25) % 1); ctx.beginPath(); ctx.arc(hub.x + (a.x - hub.x) * p, hub.y + (a.y - hub.y) * p, 2.5, 0, Math.PI * 2); ctx.fillStyle = `rgba(${R},${G},${B},${0.6 - Math.abs(p - 0.5) * 0.9})`; ctx.fill() }
       animRef.current = requestAnimationFrame(animate)
     }
     animRef.current = requestAnimationFrame(animate)
@@ -362,7 +356,7 @@ export default function Hero() {
   }
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center overflow-hidden" style={{ paddingTop: 68 }}>
+    <section ref={containerRef} className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden" style={{ paddingTop: 68 }}>
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'var(--hero-gradient)' }} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 40% at 70% 50%, var(--glow-strong) 0%, transparent 60%)', opacity: 0.5 }} />
       <div className="absolute inset-0 dot-grid pointer-events-none opacity-15" />
@@ -381,39 +375,39 @@ export default function Hero() {
         top: '10%', right: '-2%', filter: 'blur(45px)', opacity: 0.4,
       }} />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-2 gap-12 lg:gap-8 items-center py-20 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 w-full grid lg:grid-cols-2 gap-8 lg:gap-8 items-center py-12 sm:py-16 md:py-20 relative z-10">
         {/* Left — copy */}
-        <div className="order-2 lg:order-1">
+        <div className="order-1 lg:order-1">
           <motion.div custom={0} variants={tv} initial="hidden" animate="visible" className="inline-flex items-center gap-2 mb-8">
-            <div className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium" style={{ background: 'var(--glow)', border: '1px solid var(--border-strong)', color: 'var(--accent)', fontFamily: 'DM Mono' }}>
-              <Zap size={11} />
-              AI-powered software studio for modern businesses
+            <div className="flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full text-[10px] sm:text-xs font-medium" style={{ background: 'var(--glow)', border: '1px solid var(--border-strong)', color: 'var(--accent)', fontFamily: 'DM Mono' }}>
+              <Zap size={11} className="shrink-0" />
+              <span className="whitespace-nowrap">AI-powered software studio for modern businesses</span>
             </div>
           </motion.div>
 
-          <motion.h1 custom={1} variants={tv} initial="hidden" animate="visible" className="heading-xl mb-6 text-balance">
+          <motion.h1 custom={1} variants={tv} initial="hidden" animate="visible" className="heading-xl mb-4 sm:mb-6 text-balance">
             Build smarter software{' '}
             <span className="italic" style={{ color: 'var(--accent)' }}>with a team</span>
             <br className="hidden sm:block" />
             {' '}that thinks beyond code.
           </motion.h1>
 
-          <motion.p custom={2} variants={tv} initial="hidden" animate="visible" className="body-text mb-10 max-w-lg">
+          <motion.p custom={2} variants={tv} initial="hidden" animate="visible" className="body-text mb-8 sm:mb-10 max-w-lg">
             ArkEngine helps businesses turn ideas into scalable websites, apps, AI tools,
             and custom software systems — with clarity, speed, and care.
           </motion.p>
 
-          <motion.div custom={3} variants={tv} initial="hidden" animate="visible" className="flex flex-wrap gap-4">
-            <a href="#contact" className="btn-primary flex items-center gap-2 group">
+          <motion.div custom={3} variants={tv} initial="hidden" animate="visible" className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+            <a href="#contact" className="btn-primary flex items-center justify-center gap-2 group">
               Start a Project <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
             </a>
-            <a href="#projects" className="btn-secondary flex items-center gap-2">View Our Work</a>
+            <a href="#projects" className="btn-secondary flex items-center justify-center gap-2">View Our Work</a>
           </motion.div>
 
-          <motion.div custom={4} variants={tv} initial="hidden" animate="visible" className="flex gap-10 mt-14 pt-8" style={{ borderTop: '1px solid var(--border)' }}>
+          <motion.div custom={4} variants={tv} initial="hidden" animate="visible" className="flex gap-6 sm:gap-10 mt-10 sm:mt-14 pt-6 sm:pt-8" style={{ borderTop: '1px solid var(--border)' }}>
             {[{ n: '9', label: 'Person team' }, { n: '40+', label: 'Projects built' }, { n: '5', label: 'Core services' }].map((s) => (
               <div key={s.label} className="group cursor-default">
-                <div className="text-2xl font-bold transition-colors duration-300 group-hover:text-[var(--accent-warm)]" style={{ fontFamily: 'Playfair Display', color: 'var(--accent)' }}>{s.n}</div>
+                <div className="text-xl sm:text-2xl font-bold transition-colors duration-300 group-hover:text-[var(--accent-warm)]" style={{ fontFamily: 'Playfair Display', color: 'var(--accent)' }}>{s.n}</div>
                 <div className="text-xs mt-1" style={{ color: 'var(--text-secondary)', fontFamily: 'DM Mono' }}>{s.label}</div>
               </div>
             ))}
@@ -421,12 +415,12 @@ export default function Hero() {
         </div>
 
         {/* Right — Animated workspace illustration (light mode only) */}
-        <div className="order-1 lg:order-2 hidden lg:flex items-center justify-center" style={{ minHeight: 400 }}>
+        <div className="order-2 lg:order-2 hidden lg:flex items-center justify-center" style={{ minHeight: 400 }}>
           <EngineerIllustration />
         </div>
       </div>
 
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.8 }} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 2.8 }} className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 hidden sm:flex">
         <span className="text-[10px] uppercase tracking-widest" style={{ color: 'var(--text-secondary)', fontFamily: 'DM Mono' }}>scroll</span>
         <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }} className="w-px h-8" style={{ background: 'linear-gradient(to bottom, var(--accent), transparent)' }} />
       </motion.div>
