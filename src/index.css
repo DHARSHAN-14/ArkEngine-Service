@@ -93,7 +93,7 @@
 
 @layer components {
   .section-pad {
-    @apply py-28 px-6 md:px-12 lg:px-20;
+    @apply py-32 px-6 md:px-12 lg:px-20;
   }
 
   .heading-xl {
@@ -174,13 +174,13 @@
     -webkit-backdrop-filter: blur(16px);
     @apply rounded-2xl;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.06);
   }
 
   .card-glass:hover {
     border-color: var(--border-strong);
-    box-shadow: var(--shadow-md), var(--shadow-glow);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow), inset 0 1px 0 rgba(255,255,255,0.08);
+    transform: translateY(-3px);
   }
 
   .accent-text {
