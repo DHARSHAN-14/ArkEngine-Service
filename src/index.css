@@ -217,17 +217,7 @@
   }
 }
 
-/* ===== Orb animation ===== */
-@keyframes orb-pulse {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.06); opacity: 1; }
-}
-
-@keyframes orb-rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
+/* ===== Animations ===== */
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
@@ -242,18 +232,6 @@
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
-}
-
-.orb-core {
-  animation: orb-pulse 4s ease-in-out infinite;
-}
-
-.orb-ring {
-  animation: orb-rotate 14s linear infinite;
-}
-
-.orb-ring-reverse {
-  animation: orb-rotate 20s linear infinite reverse;
 }
 
 .text-shimmer {
