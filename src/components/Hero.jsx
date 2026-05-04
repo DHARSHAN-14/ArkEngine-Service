@@ -2,71 +2,163 @@ import { useEffect, useRef, useCallback } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { ArrowRight, Zap } from 'lucide-react'
 
-/* ─── Subtle Ambient Glow (Light Mode) ───
-   Ultra-subtle, slow-moving golden gradient orbs.
-   Premium = restraint. Barely visible but adds warmth and life.
-   CSS-only — no canvas needed.
+/* ─── Animated Workspace Illustration (Light Mode) ───
+   Professional geometric SVG with continuous motion.
+   Abstract tech workspace — no stick figures, purely geometric.
+   Hidden in dark mode.
 */
-function AmbientGlow() {
+function EngineerIllustration() {
+  const c = 'var(--accent)'
+  const cl = 'var(--accent-light)'
+
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none dark:opacity-0 transition-opacity duration-1000">
-      {/* Primary warm orb — right side */}
-      <motion.div
-        animate={{
-          x: [0, 30, -15, 20, 0],
-          y: [0, -20, 15, -10, 0],
-        }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute"
-        style={{
-          width: 600,
-          height: 600,
-          top: '5%',
-          right: '0%',
-          background: 'radial-gradient(circle, rgba(195, 145, 55, 0.15) 0%, rgba(195, 145, 55, 0.04) 50%, transparent 70%)',
-          borderRadius: '50%',
-          filter: 'blur(80px)',
-        }}
-      />
+    <motion.div
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: 0.5, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+      className="w-full h-full flex items-center justify-center dark:opacity-0 transition-opacity duration-700"
+    >
+      <svg viewBox="0 0 420 400" fill="none" className="w-full max-w-md" style={{ overflow: 'visible' }}>
 
-      {/* Secondary orb — center-left, cooler gold */}
-      <motion.div
-        animate={{
-          x: [0, -20, 12, -8, 0],
-          y: [0, 15, -10, 18, 0],
-        }}
-        transition={{ duration: 35, repeat: Infinity, ease: 'easeInOut', delay: 5 }}
-        className="absolute"
-        style={{
-          width: 500,
-          height: 500,
-          bottom: '5%',
-          left: '10%',
-          background: 'radial-gradient(circle, rgba(180, 130, 45, 0.1) 0%, rgba(180, 130, 45, 0.03) 50%, transparent 70%)',
-          borderRadius: '50%',
-          filter: 'blur(100px)',
-        }}
-      />
+        {/* Subtle grid lines behind everything */}
+        {[130, 160, 190, 220].map((y) => (
+          <line key={`h${y}`} x1="80" y1={y} x2="310" y2={y} stroke={c} strokeWidth="0.3" opacity="0.06" strokeDasharray="2 6" />
+        ))}
+        {[120, 160, 200, 240, 280].map((x) => (
+          <line key={`v${x}`} x1={x} y1="90" x2={x} y2="250" stroke={c} strokeWidth="0.3" opacity="0.06" strokeDasharray="2 6" />
+        ))}
 
-      {/* Tertiary accent — small, warm highlight */}
-      <motion.div
-        animate={{
-          x: [0, 15, -10, 5, 0],
-          y: [0, -12, 8, -15, 0],
-        }}
-        transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut', delay: 10 }}
-        className="absolute"
-        style={{
-          width: 350,
-          height: 350,
-          top: '35%',
-          right: '20%',
-          background: 'radial-gradient(circle, rgba(200, 155, 60, 0.12) 0%, transparent 60%)',
-          borderRadius: '50%',
-          filter: 'blur(70px)',
-        }}
-      />
-    </div>
+        {/* ── Monitor ── */}
+        <rect x="95" y="100" width="200" height="140" rx="10" stroke={c} strokeWidth="1.5" opacity="0.7" />
+        <rect x="95" y="100" width="200" height="14" rx="10" stroke={c} strokeWidth="1" opacity="0.3" />
+        {/* Screen dots */}
+        <circle cx="110" cy="107" r="2" fill={c} opacity="0.3" />
+        <circle cx="118" cy="107" r="2" fill={c} opacity="0.3" />
+        <circle cx="126" cy="107" r="2" fill={c} opacity="0.3" />
+        {/* Stand */}
+        <line x1="195" y1="240" x2="195" y2="265" stroke={c} strokeWidth="1.5" opacity="0.5" />
+        <line x1="160" y1="265" x2="230" y2="265" stroke={c} strokeWidth="2" strokeLinecap="round" opacity="0.5" />
+
+        {/* ── Code lines on screen (animated pulse) ── */}
+        {[0, 1, 2, 3, 4].map((i) => (
+          <motion.rect
+            key={`code-${i}`}
+            x={115 + (i % 2) * 12}
+            y={125 + i * 16}
+            width={60 + ((i * 37) % 50)}
+            height={4}
+            rx={2}
+            fill={c}
+            animate={{ opacity: [0.1, 0.3, 0.1] }}
+            transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4, ease: 'easeInOut' }}
+          />
+        ))}
+
+        {/* ── Code brackets < > (animated) ── */}
+        <motion.g
+          animate={{ x: [0, 3, 0], opacity: [0.5, 0.8, 0.5] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <path d="M230 140 L220 155 L230 170" stroke={cl} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+          <path d="M260 140 L270 155 L260 170" stroke={cl} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
+          <line x1="240" y1="170" x2="250" y2="140" stroke={cl} strokeWidth="1" opacity="0.35" />
+        </motion.g>
+
+        {/* ── Floating hexagon — top right (slow rotate) ── */}
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+          style={{ transformOrigin: '340px 70px' }}
+        >
+          <polygon points="340,48 358,59 358,81 340,92 322,81 322,59" stroke={c} strokeWidth="1" fill="none" opacity="0.3" />
+        </motion.g>
+        <motion.g
+          animate={{ rotate: -360 }}
+          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+          style={{ transformOrigin: '340px 70px' }}
+        >
+          <polygon points="340,56 351,62 351,78 340,84 329,78 329,62" stroke={c} strokeWidth="0.8" fill="none" opacity="0.2" />
+        </motion.g>
+
+        {/* ── Floating hexagon — left side ── */}
+        <motion.g
+          animate={{ rotate: -360 }}
+          transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
+          style={{ transformOrigin: '50px 180px' }}
+        >
+          <polygon points="50,162 64,171 64,189 50,198 36,189 36,171" stroke={c} strokeWidth="1" fill="none" opacity="0.25" />
+        </motion.g>
+
+        {/* ── Orbiting dot around monitor ── */}
+        <motion.circle
+          r="3" fill={c} opacity="0.4"
+          animate={{ cx: [95, 295, 295, 95, 95], cy: [170, 170, 240, 240, 170] }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+        />
+
+        {/* ── Floating circles — decorative ── */}
+        <motion.circle cx="360" cy="180" r="5" stroke={c} strokeWidth="1" fill="none"
+          animate={{ y: [0, -8, 0], opacity: [0.15, 0.35, 0.15] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.circle cx="370" cy="220" r="3" stroke={c} strokeWidth="0.8" fill="none"
+          animate={{ y: [0, -6, 0], opacity: [0.1, 0.25, 0.1] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        />
+
+        {/* ── Connection lines (dashed, pulsing) ── */}
+        <motion.line x1="295" y1="140" x2="322" y2="80" stroke={c} strokeWidth="0.6" strokeDasharray="4 4"
+          animate={{ opacity: [0.1, 0.25, 0.1] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.line x1="95" y1="190" x2="64" y2="180" stroke={c} strokeWidth="0.6" strokeDasharray="4 4"
+          animate={{ opacity: [0.1, 0.25, 0.1] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+        />
+
+        {/* ── Floating terminal window — bottom-right ── */}
+        <motion.g
+          animate={{ y: [0, -5, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        >
+          <rect x="310" y="250" width="80" height="55" rx="6" stroke={c} strokeWidth="1" opacity="0.25" />
+          <line x1="310" y1="262" x2="390" y2="262" stroke={c} strokeWidth="0.5" opacity="0.15" />
+          <motion.rect x="318" y="270" width="35" height="3" rx="1.5" fill={c}
+            animate={{ width: [35, 50, 35], opacity: [0.1, 0.2, 0.1] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <rect x="318" y="280" width="45" height="3" rx="1.5" fill={c} opacity="0.08" />
+          <rect x="318" y="290" width="30" height="3" rx="1.5" fill={c} opacity="0.08" />
+        </motion.g>
+
+        {/* ── Floating card — top-left ── */}
+        <motion.g
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <rect x="30" y="60" width="70" height="50" rx="6" stroke={c} strokeWidth="1" opacity="0.2" />
+          <rect x="38" y="72" width="30" height="3" rx="1.5" fill={c} opacity="0.12" />
+          <rect x="38" y="80" width="50" height="3" rx="1.5" fill={c} opacity="0.08" />
+          <rect x="38" y="88" width="40" height="3" rx="1.5" fill={c} opacity="0.08" />
+        </motion.g>
+        <motion.line x1="100" y1="85" x2="95" y2="110" stroke={c} strokeWidth="0.6" strokeDasharray="3 3"
+          animate={{ opacity: [0.08, 0.2, 0.08] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        />
+
+        {/* ── Pulsing center dot ── */}
+        <motion.circle cx="195" cy="175" r="4" fill={c}
+          animate={{ r: [4, 8, 4], opacity: [0.15, 0.05, 0.15] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        />
+
+        {/* ── Orbiting dots around hexagon ── */}
+        <motion.circle r="2" fill={c} opacity="0.3"
+          animate={{ cx: [340, 358, 340, 322, 340], cy: [48, 70, 92, 70, 48] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+        />
+      </svg>
+    </motion.div>
   )
 }
 
@@ -186,8 +278,7 @@ export default function Hero() {
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 40% at 70% 50%, var(--glow-strong) 0%, transparent 60%)', opacity: 0.5 }} />
       <div className="absolute inset-0 dot-grid pointer-events-none opacity-15" />
 
-      {/* Light: Subtle ambient glow | Dark: Network constellation */}
-      <AmbientGlow />
+      {/* Dark mode: Network constellation */}
       <div className="absolute inset-0 overflow-hidden">
         <DarkCanvas mouseX={springX} mouseY={springY} containerRef={containerRef} />
       </div>
@@ -201,8 +292,9 @@ export default function Hero() {
         top: '10%', right: '-2%', filter: 'blur(45px)', opacity: 0.4,
       }} />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full py-20 relative z-10">
-        <div className="max-w-2xl">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full grid lg:grid-cols-2 gap-12 lg:gap-8 items-center py-20 relative z-10">
+        {/* Left — copy */}
+        <div className="order-2 lg:order-1">
           <motion.div custom={0} variants={tv} initial="hidden" animate="visible" className="inline-flex items-center gap-2 mb-8">
             <div className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium" style={{ background: 'var(--glow)', border: '1px solid var(--border-strong)', color: 'var(--accent)', fontFamily: 'DM Mono' }}>
               <Zap size={11} />
@@ -237,6 +329,11 @@ export default function Hero() {
               </div>
             ))}
           </motion.div>
+        </div>
+
+        {/* Right — Animated workspace illustration (light mode only) */}
+        <div className="order-1 lg:order-2 hidden lg:flex items-center justify-center" style={{ minHeight: 400 }}>
+          <EngineerIllustration />
         </div>
       </div>
 
