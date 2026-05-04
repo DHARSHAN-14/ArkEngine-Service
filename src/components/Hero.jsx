@@ -4,7 +4,7 @@ import { ArrowRight, Zap } from 'lucide-react'
 
 /* ─── Animated Workspace Illustration (Light Mode) ───
    Professional geometric SVG with continuous motion.
-   Abstract tech workspace — no stick figures, purely geometric.
+   Bigger, brighter, with gear, coffee, phone, cloud icons.
    Hidden in dark mode.
 */
 function EngineerIllustration() {
@@ -13,149 +13,238 @@ function EngineerIllustration() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.92 }}
+      initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ delay: 0.5, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ delay: 0.4, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
       className="w-full h-full flex items-center justify-center dark:opacity-0 transition-opacity duration-700"
     >
-      <svg viewBox="0 0 420 400" fill="none" className="w-full max-w-md" style={{ overflow: 'visible' }}>
+      <svg viewBox="0 0 500 480" fill="none" className="w-full max-w-xl" style={{ overflow: 'visible' }}>
 
-        {/* Subtle grid lines behind everything */}
-        {[130, 160, 190, 220].map((y) => (
-          <line key={`h${y}`} x1="80" y1={y} x2="310" y2={y} stroke={c} strokeWidth="0.3" opacity="0.06" strokeDasharray="2 6" />
+        {/* ── Background grid ── */}
+        {[120, 160, 200, 240, 280, 320].map((y) => (
+          <line key={`h${y}`} x1="40" y1={y} x2="460" y2={y} stroke={c} strokeWidth="0.4" opacity="0.08" strokeDasharray="2 8" />
         ))}
-        {[120, 160, 200, 240, 280].map((x) => (
-          <line key={`v${x}`} x1={x} y1="90" x2={x} y2="250" stroke={c} strokeWidth="0.3" opacity="0.06" strokeDasharray="2 6" />
+        {[80, 140, 200, 260, 320, 380, 440].map((x) => (
+          <line key={`v${x}`} x1={x} y1="80" x2={x} y2="360" stroke={c} strokeWidth="0.4" opacity="0.08" strokeDasharray="2 8" />
         ))}
 
-        {/* ── Monitor ── */}
-        <rect x="95" y="100" width="200" height="140" rx="10" stroke={c} strokeWidth="1.5" opacity="0.7" />
-        <rect x="95" y="100" width="200" height="14" rx="10" stroke={c} strokeWidth="1" opacity="0.3" />
-        {/* Screen dots */}
-        <circle cx="110" cy="107" r="2" fill={c} opacity="0.3" />
-        <circle cx="118" cy="107" r="2" fill={c} opacity="0.3" />
-        <circle cx="126" cy="107" r="2" fill={c} opacity="0.3" />
+        {/* ══════ MONITOR ══════ */}
+        <rect x="100" y="110" width="240" height="165" rx="12" stroke={c} strokeWidth="2" opacity="0.8" />
+        {/* Title bar */}
+        <rect x="100" y="110" width="240" height="18" rx="12" stroke={c} strokeWidth="1.2" opacity="0.4" />
+        <circle cx="116" cy="119" r="3" fill={c} opacity="0.5" />
+        <circle cx="126" cy="119" r="3" fill={c} opacity="0.35" />
+        <circle cx="136" cy="119" r="3" fill={c} opacity="0.25" />
         {/* Stand */}
-        <line x1="195" y1="240" x2="195" y2="265" stroke={c} strokeWidth="1.5" opacity="0.5" />
-        <line x1="160" y1="265" x2="230" y2="265" stroke={c} strokeWidth="2" strokeLinecap="round" opacity="0.5" />
+        <line x1="220" y1="275" x2="220" y2="305" stroke={c} strokeWidth="2" opacity="0.6" />
+        <path d="M180 305 Q220 312 260 305" stroke={c} strokeWidth="2" strokeLinecap="round" opacity="0.5" fill="none" />
 
-        {/* ── Code lines on screen (animated pulse) ── */}
-        {[0, 1, 2, 3, 4].map((i) => (
+        {/* ── Code lines on screen ── */}
+        {[0, 1, 2, 3, 4, 5].map((i) => (
           <motion.rect
             key={`code-${i}`}
-            x={115 + (i % 2) * 12}
-            y={125 + i * 16}
-            width={60 + ((i * 37) % 50)}
-            height={4}
-            rx={2}
+            x={120 + (i % 3) * 10}
+            y={140 + i * 17}
+            width={55 + ((i * 41) % 65)}
+            height={5}
+            rx={2.5}
             fill={c}
-            animate={{ opacity: [0.1, 0.3, 0.1] }}
-            transition={{ duration: 2.5, repeat: Infinity, delay: i * 0.4, ease: 'easeInOut' }}
+            animate={{ opacity: [0.15, 0.45, 0.15] }}
+            transition={{ duration: 2.2, repeat: Infinity, delay: i * 0.35, ease: 'easeInOut' }}
           />
         ))}
 
-        {/* ── Code brackets < > (animated) ── */}
+        {/* ── Code brackets </> ── */}
         <motion.g
-          animate={{ x: [0, 3, 0], opacity: [0.5, 0.8, 0.5] }}
+          animate={{ x: [0, 4, 0], opacity: [0.6, 1, 0.6] }}
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <path d="M230 140 L220 155 L230 170" stroke={cl} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
-          <path d="M260 140 L270 155 L260 170" stroke={cl} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.5" />
-          <line x1="240" y1="170" x2="250" y2="140" stroke={cl} strokeWidth="1" opacity="0.35" />
+          <path d="M260 150 L248 170 L260 190" stroke={cl} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+          <path d="M295 150 L307 170 L295 190" stroke={cl} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.6" />
+          <line x1="272" y1="192" x2="283" y2="148" stroke={cl} strokeWidth="1.5" opacity="0.4" />
         </motion.g>
 
-        {/* ── Floating hexagon — top right (slow rotate) ── */}
+        {/* ══════ GEAR / SETTINGS ══════ */}
         <motion.g
           animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          style={{ transformOrigin: '340px 70px' }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          style={{ transformOrigin: '420px 120px' }}
         >
-          <polygon points="340,48 358,59 358,81 340,92 322,81 322,59" stroke={c} strokeWidth="1" fill="none" opacity="0.3" />
+          <circle cx="420" cy="120" r="20" stroke={c} strokeWidth="1.5" fill="none" opacity="0.55" />
+          <circle cx="420" cy="120" r="8" stroke={c} strokeWidth="1.5" fill="none" opacity="0.45" />
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((angle) => {
+            const rad = (angle * Math.PI) / 180
+            return (
+              <line
+                key={angle}
+                x1={420 + Math.cos(rad) * 17}
+                y1={120 + Math.sin(rad) * 17}
+                x2={420 + Math.cos(rad) * 25}
+                y2={120 + Math.sin(rad) * 25}
+                stroke={c} strokeWidth="2.5" strokeLinecap="round" opacity="0.5"
+              />
+            )
+          })}
         </motion.g>
+
+        {/* ══════ COFFEE MUG ══════ */}
         <motion.g
-          animate={{ rotate: -360 }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-          style={{ transformOrigin: '340px 70px' }}
+          animate={{ y: [0, -4, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
         >
-          <polygon points="340,56 351,62 351,78 340,84 329,78 329,62" stroke={c} strokeWidth="0.8" fill="none" opacity="0.2" />
+          <rect x="380" y="310" width="32" height="30" rx="5" stroke={c} strokeWidth="1.5" opacity="0.6" />
+          <path d="M412 318 Q422 318 422 328 Q422 338 412 338" stroke={c} strokeWidth="1.5" strokeLinecap="round" opacity="0.45" fill="none" />
+          {/* Steam */}
+          <motion.path d="M390 306 Q392 296 389 288" stroke={cl} strokeWidth="1.2" strokeLinecap="round" opacity="0.4" fill="none"
+            animate={{ opacity: [0.2, 0.5, 0.2], y: [0, -3, 0] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <motion.path d="M400 304 Q402 294 399 286" stroke={cl} strokeWidth="1.2" strokeLinecap="round" opacity="0.35" fill="none"
+            animate={{ opacity: [0.15, 0.45, 0.15], y: [0, -4, 0] }}
+            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+          />
         </motion.g>
 
-        {/* ── Floating hexagon — left side ── */}
-        <motion.g
-          animate={{ rotate: -360 }}
-          transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
-          style={{ transformOrigin: '50px 180px' }}
-        >
-          <polygon points="50,162 64,171 64,189 50,198 36,189 36,171" stroke={c} strokeWidth="1" fill="none" opacity="0.25" />
-        </motion.g>
-
-        {/* ── Orbiting dot around monitor ── */}
-        <motion.circle
-          r="3" fill={c} opacity="0.4"
-          animate={{ cx: [95, 295, 295, 95, 95], cy: [170, 170, 240, 240, 170] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
-        />
-
-        {/* ── Floating circles — decorative ── */}
-        <motion.circle cx="360" cy="180" r="5" stroke={c} strokeWidth="1" fill="none"
-          animate={{ y: [0, -8, 0], opacity: [0.15, 0.35, 0.15] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.circle cx="370" cy="220" r="3" stroke={c} strokeWidth="0.8" fill="none"
-          animate={{ y: [0, -6, 0], opacity: [0.1, 0.25, 0.1] }}
-          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        />
-
-        {/* ── Connection lines (dashed, pulsing) ── */}
-        <motion.line x1="295" y1="140" x2="322" y2="80" stroke={c} strokeWidth="0.6" strokeDasharray="4 4"
-          animate={{ opacity: [0.1, 0.25, 0.1] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.line x1="95" y1="190" x2="64" y2="180" stroke={c} strokeWidth="0.6" strokeDasharray="4 4"
-          animate={{ opacity: [0.1, 0.25, 0.1] }}
-          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-        />
-
-        {/* ── Floating terminal window — bottom-right ── */}
+        {/* ══════ MOBILE PHONE ══════ */}
         <motion.g
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         >
-          <rect x="310" y="250" width="80" height="55" rx="6" stroke={c} strokeWidth="1" opacity="0.25" />
-          <line x1="310" y1="262" x2="390" y2="262" stroke={c} strokeWidth="0.5" opacity="0.15" />
-          <motion.rect x="318" y="270" width="35" height="3" rx="1.5" fill={c}
-            animate={{ width: [35, 50, 35], opacity: [0.1, 0.2, 0.1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <rect x="318" y="280" width="45" height="3" rx="1.5" fill={c} opacity="0.08" />
-          <rect x="318" y="290" width="30" height="3" rx="1.5" fill={c} opacity="0.08" />
+          <rect x="395" y="195" width="40" height="70" rx="8" stroke={c} strokeWidth="1.5" opacity="0.5" />
+          {/* Screen content */}
+          <rect x="402" y="212" width="26" height="4" rx="2" fill={c} opacity="0.25" />
+          <rect x="402" y="220" width="18" height="4" rx="2" fill={c} opacity="0.18" />
+          <rect x="402" y="228" width="22" height="4" rx="2" fill={c} opacity="0.15" />
+          {/* Home indicator */}
+          <line x1="410" y1="255" x2="425" y2="255" stroke={c} strokeWidth="2" strokeLinecap="round" opacity="0.3" />
         </motion.g>
 
-        {/* ── Floating card — top-left ── */}
+        {/* ══════ CLOUD ══════ */}
+        <motion.g
+          animate={{ x: [0, 6, 0], y: [0, -3, 0] }}
+          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <path d="M80 80 Q80 60 100 60 Q105 45 125 50 Q140 40 155 55 Q170 50 170 65 Q185 65 185 80 Q185 95 170 95 L95 95 Q80 95 80 80Z"
+            stroke={c} strokeWidth="1.5" fill="none" opacity="0.4" />
+          {/* Upload arrow */}
+          <line x1="132" y1="88" x2="132" y2="70" stroke={c} strokeWidth="1.2" strokeLinecap="round" opacity="0.3" />
+          <path d="M126 76 L132 68 L138 76" stroke={c} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.3" />
+        </motion.g>
+
+        {/* ══════ FLOATING HEXAGONS ══════ */}
+        <motion.g
+          animate={{ rotate: 360 }}
+          transition={{ duration: 35, repeat: Infinity, ease: 'linear' }}
+          style={{ transformOrigin: '55px 230px' }}
+        >
+          <polygon points="55,208 73,221 73,245 55,258 37,245 37,221" stroke={c} strokeWidth="1.2" fill="none" opacity="0.4" />
+        </motion.g>
+        <motion.g
+          animate={{ rotate: -360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+          style={{ transformOrigin: '55px 230px' }}
+        >
+          <polygon points="55,216 65,222 65,240 55,246 45,240 45,222" stroke={c} strokeWidth="0.8" fill="none" opacity="0.25" />
+        </motion.g>
+
+        {/* ══════ LIGHTBULB ══════ */}
+        <motion.g
+          animate={{ opacity: [0.35, 0.65, 0.35] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <circle cx="460" cy="380" r="14" stroke={c} strokeWidth="1.5" fill="none" opacity="0.45" />
+          <line x1="454" y1="394" x2="466" y2="394" stroke={c} strokeWidth="1.2" strokeLinecap="round" opacity="0.35" />
+          <line x1="455" y1="398" x2="465" y2="398" stroke={c} strokeWidth="1" strokeLinecap="round" opacity="0.25" />
+          {/* Rays */}
+          <line x1="460" y1="360" x2="460" y2="352" stroke={cl} strokeWidth="1" strokeLinecap="round" opacity="0.3" />
+          <line x1="478" y1="370" x2="484" y2="364" stroke={cl} strokeWidth="1" strokeLinecap="round" opacity="0.25" />
+          <line x1="442" y1="370" x2="436" y2="364" stroke={cl} strokeWidth="1" strokeLinecap="round" opacity="0.25" />
+          <line x1="480" y1="385" x2="486" y2="385" stroke={cl} strokeWidth="1" strokeLinecap="round" opacity="0.2" />
+          <line x1="440" y1="385" x2="434" y2="385" stroke={cl} strokeWidth="1" strokeLinecap="round" opacity="0.2" />
+        </motion.g>
+
+        {/* ══════ CURSOR ARROW ══════ */}
+        <motion.g
+          animate={{ x: [0, 8, 3, 0], y: [0, 5, -3, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <path d="M300 320 L300 345 L308 338 L316 352 L320 350 L312 336 L322 335Z"
+            stroke={c} strokeWidth="1.5" strokeLinejoin="round" fill="none" opacity="0.5" />
+        </motion.g>
+
+        {/* ══════ TERMINAL WINDOW ══════ */}
+        <motion.g
+          animate={{ y: [0, -5, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
+        >
+          <rect x="55" y="330" width="100" height="65" rx="8" stroke={c} strokeWidth="1.2" opacity="0.45" />
+          <line x1="55" y1="345" x2="155" y2="345" stroke={c} strokeWidth="0.8" opacity="0.25" />
+          <circle cx="67" cy="338" r="2" fill={c} opacity="0.35" />
+          <circle cx="75" cy="338" r="2" fill={c} opacity="0.25" />
+          <circle cx="83" cy="338" r="2" fill={c} opacity="0.18" />
+          {/* Terminal lines */}
+          <motion.rect x="65" y="355" width="40" height="4" rx="2" fill={c}
+            animate={{ width: [40, 65, 40], opacity: [0.15, 0.35, 0.15] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <rect x="65" y="365" width="55" height="4" rx="2" fill={c} opacity="0.15" />
+          <rect x="65" y="375" width="35" height="4" rx="2" fill={c} opacity="0.12" />
+        </motion.g>
+
+        {/* ══════ UI CARD — top-left ══════ */}
         <motion.g
           animate={{ y: [0, -6, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <rect x="30" y="60" width="70" height="50" rx="6" stroke={c} strokeWidth="1" opacity="0.2" />
-          <rect x="38" y="72" width="30" height="3" rx="1.5" fill={c} opacity="0.12" />
-          <rect x="38" y="80" width="50" height="3" rx="1.5" fill={c} opacity="0.08" />
-          <rect x="38" y="88" width="40" height="3" rx="1.5" fill={c} opacity="0.08" />
+          <rect x="30" y="110" width="55" height="70" rx="8" stroke={c} strokeWidth="1.2" opacity="0.4" />
+          {/* Avatar circle */}
+          <circle cx="57" cy="130" r="8" stroke={c} strokeWidth="1" opacity="0.3" />
+          <rect x="38" y="145" width="35" height="3" rx="1.5" fill={c} opacity="0.2" />
+          <rect x="38" y="153" width="25" height="3" rx="1.5" fill={c} opacity="0.15" />
+          <rect x="38" y="161" width="40" height="3" rx="1.5" fill={c} opacity="0.12" />
         </motion.g>
-        <motion.line x1="100" y1="85" x2="95" y2="110" stroke={c} strokeWidth="0.6" strokeDasharray="3 3"
-          animate={{ opacity: [0.08, 0.2, 0.08] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        />
 
-        {/* ── Pulsing center dot ── */}
-        <motion.circle cx="195" cy="175" r="4" fill={c}
-          animate={{ r: [4, 8, 4], opacity: [0.15, 0.05, 0.15] }}
+        {/* ══════ CONNECTION LINES ══════ */}
+        <motion.line x1="340" y1="170" x2="395" y2="140" stroke={c} strokeWidth="0.8" strokeDasharray="4 4"
+          animate={{ opacity: [0.12, 0.3, 0.12] }}
           transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
         />
+        <motion.line x1="100" y1="200" x2="73" y2="225" stroke={c} strokeWidth="0.8" strokeDasharray="4 4"
+          animate={{ opacity: [0.12, 0.3, 0.12] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        />
+        <motion.line x1="340" y1="250" x2="395" y2="230" stroke={c} strokeWidth="0.6" strokeDasharray="3 5"
+          animate={{ opacity: [0.08, 0.22, 0.08] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+        />
+        <motion.line x1="85" y1="180" x2="100" y2="155" stroke={c} strokeWidth="0.6" strokeDasharray="3 5"
+          animate={{ opacity: [0.08, 0.2, 0.08] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+        />
 
-        {/* ── Orbiting dots around hexagon ── */}
-        <motion.circle r="2" fill={c} opacity="0.3"
-          animate={{ cx: [340, 358, 340, 322, 340], cy: [48, 70, 92, 70, 48] }}
-          transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
+        {/* ══════ ORBITING DOTS ══════ */}
+        <motion.circle r="3.5" fill={c}
+          animate={{ cx: [100, 340, 340, 100, 100], cy: [180, 180, 275, 275, 180] }}
+          transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+          opacity="0.5"
+        />
+        <motion.circle r="2.5" fill={c} opacity="0.35"
+          animate={{ cx: [420, 435, 420, 405, 420], cy: [100, 120, 140, 120, 100] }}
+          transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
+        />
+
+        {/* ══════ DECORATIVE DOTS ══════ */}
+        <motion.circle cx="470" cy="250" r="3" fill={c}
+          animate={{ opacity: [0.15, 0.4, 0.15] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.circle cx="25" cy="300" r="2.5" fill={c}
+          animate={{ opacity: [0.1, 0.3, 0.1] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        />
+        <motion.circle cx="250" cy="430" r="2" fill={c}
+          animate={{ opacity: [0.1, 0.25, 0.1] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
         />
       </svg>
     </motion.div>
